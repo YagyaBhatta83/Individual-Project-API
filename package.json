@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/YagyaBhatta83/Individual-Project-API/issues"
   },
-  "homepage": "https://github.com/YagyaBhatta83/Individual-Project-API#readme"
+  "homepage": "https://github.com/YagyaBhatta83/Individual-Project-API#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
