@@ -1,10 +1,20 @@
-const name = 'hello'
-console.log(name);
+
 const express = require('express')
-const app = express()
+const mongoose = require('mongoose');
+const dotenv = require('dotenv').config()
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+const app = express();
+app.use(express.json());
 
-app.listen(3000)
+
+mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+    .then((db) => {
+        console.log("Successfully connected to MongodB server");
+    }, (err) => console.log(err));
+
+
+
+
+    app.listen(process.env.PORT, () => {
+        console.log(`App is running at localhost:${process.env.PORT}`);
+    });
