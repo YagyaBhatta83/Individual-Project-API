@@ -1,8 +1,12 @@
 const { express, mongoose, DB_URL } = require("./config");
 
 const userRouter = require('./routes/users');
+const serviceRouter = require('./routes/service');
+
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 
 
 mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
