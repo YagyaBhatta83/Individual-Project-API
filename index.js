@@ -1,10 +1,6 @@
+const { express, mongoose, DB_URL } = require("./config");
 
-const express = require('express')
-const mongoose = require('mongoose');
-const dotenv = require('dotenv').config()
 const userRouter = require('./routes/users');
-
-
 const app = express();
 app.use(express.json());
 

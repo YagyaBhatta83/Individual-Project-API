@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 const router = express.Router();
 
-router.post("/signup", (req, res, next) => {
+router.post("/users/signup", (req, res, next) => {
   let password = req.body.password;
   bcrypt.hash(password, 10, function(err, hash) {
     if (err) {
@@ -26,5 +26,32 @@ router.post("/signup", (req, res, next) => {
       .catch(next);
   });
 });
+
+router.post('/users/login', (req, res, next) => {
+  User.findOne({ username: req.body.username })
+      .then((user) => {
+        // console.log(user.username);
+          if (user == null) {
+              let err = new Error('username not found!');
+              err.status = 401;
+              return next(err);
+          } 
+          else{
+              bcrypt.compare(req.body.password, user.password)
+              .then((isMatch) => {
+                  // console.log(req.body.password);
+                  //   console.log(user.password);
+                  if (!isMatch) {
+                      let err = new Error('Password does not match!');
+                      err.status = 401;
+                      return next(err);
+                  }
+                  let token = jwt.sign({ _id: user._id }, process.env.SECRET);
+                  res.json({ status: 'Login success!', token: token });
+              }).catch(next);
+
+          }
+      }).catch(next);
+  })
 
 module.exports = router;
