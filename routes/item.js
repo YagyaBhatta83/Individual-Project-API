@@ -59,3 +59,18 @@ router.post("/items",auth.verifyUser, auth.verifyAdmin,upload.single('image'), (
               res.json(item);
           }).catch(err=>next(err));
       })
+      .put(auth.verifyUser, auth.verifyAdmin,(req, res, next) => {
+        Item.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+            .then((item) => {
+                res.json({msg: "item Updated Successfully! "});
+            }).catch(err=>next(err));
+    })
+.delete(auth.verifyUser, auth.verifyAdmin,(req, res, next) => {
+        Item.findOneAndDelete({ _id: req.params.id})
+            .then((item) => {
+                if (item == null) throw new Error("item not found!");
+                res.json({msg: "item Deleted Successfully! "});
+            }).catch(err=>next(err));
+    });
+
+    module.exports = router;
