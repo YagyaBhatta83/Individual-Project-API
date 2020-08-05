@@ -39,3 +39,23 @@ router.post("/items",auth.verifyUser, auth.verifyAdmin,upload.single('image'), (
          next(err);
       });
   });
+
+  router.get("/items", (req, res, next) => {
+    Item.find({})
+        .then((item) => {
+          res.json(item);
+        })
+        .catch(err=>next(err));
+  });
+  
+  router.route('/items/:id')
+  .get((req, res, next) => {
+      Item.findById(req.params.id)
+          .populate({
+              path: 'item',
+              select: 'name'
+          })
+          .then((item) => {
+              res.json(item);
+          }).catch(err=>next(err));
+      })
