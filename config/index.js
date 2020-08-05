@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-
+const path = require("path");
 const bcrypt = require("bcryptjs");
 
 require('dotenv').config();
@@ -15,5 +16,7 @@ module.exports = {
     DB_URL,
     multer,
     jwt,
+    cors,
+    path,
     bcrypt
 }
