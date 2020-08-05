@@ -2,6 +2,7 @@ const { express, mongoose, DB_URL } = require("./config");
 
 const userRouter = require('./routes/users');
 const serviceRouter = require('./routes/service');
+const itemRouter = require("./routes/item");
 
 const app = express();
 app.use(express.json());
